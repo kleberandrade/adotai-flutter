@@ -12,14 +12,17 @@ class SimpleTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: label,
-        filled: true,
-        border: InputBorder.none,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: label,
+          filled: true,
+          border: InputBorder.none,
+        ),
+        keyboardType: TextInputType.text,
+        onSaved: onSaved,
       ),
-      keyboardType: TextInputType.text,
-      onSaved: onSaved,
     );
   }
 }

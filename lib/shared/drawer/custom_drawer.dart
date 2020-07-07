@@ -1,4 +1,5 @@
 import 'package:adotai/modules/home/home_page.dart';
+import 'package:adotai/modules/pets/pets_page.dart';
 import 'package:adotai/modules/signin/signin_controller.dart';
 import 'package:adotai/modules/signin/signin_page.dart';
 import 'package:adotai/shared/dialogs/quit_dialog.dart';
@@ -46,13 +47,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
               //NavigatorHelper.pushReplacement(context, ProfilePage());
             },
           ),
-          Divider(),
           DrawerItem(
             icon: Icons.favorite,
-            text: 'Animais',
+            text: 'Adote um Pet',
             selected: widget.selected == 3,
             onTap: () {
-              //NavigatorHelper.pushReplacement(context, AnimalsPage());
+              NavigatorHelper.pushReplacement(context, PetsPage());
             },
           ),
           DrawerItem(

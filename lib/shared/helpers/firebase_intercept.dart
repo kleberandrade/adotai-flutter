@@ -14,13 +14,14 @@ final firebaseErrors = {
 class FirebaseIntercept {
   static Future intercept(Function request) async {
     try {
-      print('intercept function');
       return await request();
     } on PlatformException catch (e) {
-      if (firebaseErrors.containsKey(e.code))
+      if (firebaseErrors.containsKey(e.code)) {
         return Future.error(firebaseErrors[e.code]);
-      else
+      } else {
+        print(e.code);
         return Future.error('Ocorreu um erro indefinido.');
+      }
     } on SocketException {
       return Future.error(
           'Problemas com a internet, tente novamente mais tarde.');
