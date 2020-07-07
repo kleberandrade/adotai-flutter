@@ -16,6 +16,7 @@ class EmailFormField extends StatelessWidget {
         filled: true,
         border: InputBorder.none,
       ),
+      keyboardType: TextInputType.emailAddress,
       onSaved: onSaved,
     );
   }

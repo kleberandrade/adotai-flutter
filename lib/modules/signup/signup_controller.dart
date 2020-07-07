@@ -1,4 +1,5 @@
 import 'package:adotai/modules/signup/signup_repository.dart';
+import 'package:adotai/shared/helpers/firebase_intercept.dart';
 import 'package:mobx/mobx.dart';
 
 part 'signup_controller.g.dart';
@@ -26,7 +27,9 @@ abstract class _SignupControllerBase with Store {
 
   @action
   Future createUser() async {
-    await _repository.createUserWithEmailAndPassword(
-        email: email, password: password);
+    return await FirebaseIntercept.intercept(() async {
+      await _repository.createUserWithEmailAndPassword(
+          email: email, password: password);
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:adotai/shared/helpers/firebase_intercept.dart';
 import 'package:mobx/mobx.dart';
 
 import 'signin_repository.dart';
@@ -26,7 +27,23 @@ abstract class _SigninControllerBase with Store {
 
   @action
   Future login() async {
-    await _repository.signInWithEmailAndPassword(
-        email: email, password: password);
+    return await FirebaseIntercept.intercept(() async {
+      return await _repository.signInWithEmailAndPassword(
+          email: email, password: password);
+    });
+  }
+
+  @action
+  Future logout() async {
+    return await FirebaseIntercept.intercept(() async {
+      return await _repository.signOut();
+    });
+  }
+
+  @action
+  Future<bool> getCurrentUser() async {
+    return await FirebaseIntercept.intercept(() async {
+      return await _repository.getCurrentUser() != null;
+    });
   }
 }

@@ -20,7 +20,10 @@ class SubmitButton extends StatelessWidget {
           color: Theme.of(context).canvasColor,
         ),
       ),
-      onPressed: onTap,
+      onPressed: () {
+        FocusScope.of(context).unfocus();
+        onTap();
+      },
     );
   }
 }
