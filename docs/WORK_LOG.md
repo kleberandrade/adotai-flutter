@@ -21,3 +21,5 @@
 - Automatic approval review blocked direct push to master because it requires explicit trusted-user authorization for the shared default branch. No push to master was performed. A safer review branch was subsequently created and pushed successfully: `modernization/adotai-local-20261117`.
 
 - Final release build passed in 71.3 seconds. Locked installation and zero-change format checks passed. Created a review branch instead of changing master; integration remains a separate approval step.
+
+- User explicitly authorized integration of PR #1 into master. Before integration, corrected the apple-touch icon reference to the existing original 1024px icon. Verified target file and whitespace; application behavior is unchanged.
