@@ -1,133 +1,81 @@
-import 'dart:convert';
+enum AdoptionStatus { submitted, meeting, completed, cancelled }
 
-class PetsModel {
-  String picture;
-  String name;
-  String specie;
-  String story;
-  String size;
-  String breed;
-  String gender;
-  String nature;
-  int age;
-  String chip;
-  bool castrated;
-
-  PetsModel({
-    this.picture,
+class Pet {
+  final String id, name, species, size, gender, nature;
+  final int age, color;
+  const Pet(
+    this.id,
     this.name,
-    this.specie,
-    this.story,
+    this.species,
     this.size,
-    this.breed,
     this.gender,
-    this.nature,
     this.age,
-    this.chip,
-    this.castrated,
-  });
+    this.nature,
+    this.color,
+  );
+}
 
-  PetsModel copyWith({
-    String picture,
-    String name,
-    String specie,
-    String story,
-    String size,
-    String breed,
-    String gender,
-    String nature,
-    int age,
-    String chip,
-    bool castrated,
-  }) {
-    return PetsModel(
-      picture: picture ?? this.picture,
-      name: name ?? this.name,
-      specie: specie ?? this.specie,
-      story: story ?? this.story,
-      size: size ?? this.size,
-      breed: breed ?? this.breed,
-      gender: gender ?? this.gender,
-      nature: nature ?? this.nature,
-      age: age ?? this.age,
-      chip: chip ?? this.chip,
-      castrated: castrated ?? this.castrated,
-    );
+const seedPets = [
+  Pet('luna', 'Luna', 'dog', 'medium', 'female', 2, 'gentle', 0xFFE6CBAF),
+  Pet('oliver', 'Oliver', 'cat', 'small', 'male', 1, 'curious', 0xFFCFDAD0),
+  Pet('pipoca', 'Pipoca', 'dog', 'small', 'female', 3, 'playful', 0xFFF1D3BE),
+  Pet('bento', 'Bento', 'dog', 'large', 'male', 5, 'gentle', 0xFFD9D6E8),
+  Pet('amora', 'Amora', 'cat', 'small', 'female', 2, 'gentle', 0xFFE9D8B1),
+  Pet('nino', 'Nino', 'cat', 'small', 'male', 4, 'curious', 0xFFBCD7D8),
+];
+
+List<Pet> filterPets(
+  Iterable<Pet> pets, {
+  String species = '',
+  String size = '',
+  String query = '',
+}) => pets
+    .where(
+      (p) =>
+          (species.isEmpty || p.species == species) &&
+          (size.isEmpty || p.size == size) &&
+          p.name.toLowerCase().contains(query.trim().toLowerCase()),
+    )
+    .toList();
+
+class AdoptionRequest {
+  final String petId, name, email, home;
+  final AdoptionStatus status;
+  final DateTime createdAt;
+  const AdoptionRequest(
+    this.petId,
+    this.name,
+    this.email,
+    this.home,
+    this.status,
+    this.createdAt,
+  );
+  AdoptionRequest withStatus(AdoptionStatus next) =>
+      AdoptionRequest(petId, name, email, home, next, createdAt);
+  Map<String, Object> toJson() => {
+    'petId': petId,
+    'name': name,
+    'email': email,
+    'home': home,
+    'status': status.name,
+    'createdAt': createdAt.toIso8601String(),
+  };
+  factory AdoptionRequest.fromJson(Map<String, dynamic> json) =>
+      AdoptionRequest(
+        json['petId'] as String,
+        json['name'] as String,
+        json['email'] as String,
+        json['home'] as String,
+        AdoptionStatus.values.byName(json['status'] as String),
+        DateTime.parse(json['createdAt'] as String),
+      );
+}
+
+String? validateApplication(String name, String email, String home) {
+  if (name.trim().length < 2) return 'name';
+  if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email.trim())) {
+    return 'email';
   }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'picture': picture,
-      'name': name,
-      'specie': specie,
-      'story': story,
-      'size': size,
-      'breed': breed,
-      'gender': gender,
-      'nature': nature,
-      'age': age,
-      'chip': chip,
-      'castrated': castrated,
-    };
-  }
-
-  static PetsModel fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return PetsModel(
-      picture: map['picture'],
-      name: map['name'],
-      specie: map['specie'],
-      story: map['story'],
-      size: map['size'],
-      breed: map['breed'],
-      gender: map['gender'],
-      nature: map['nature'],
-      age: map['age'],
-      chip: map['chip'],
-      castrated: map['castrated'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  static PetsModel fromJson(String source) => fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'PetsModel(picture: $picture, name: $name, specie: $specie, story: $story, size: $size, breed: $breed, gender: $gender, nature: $nature, age: $age, chip: $chip, castrated: $castrated)';
-  }
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is PetsModel &&
-        o.picture == picture &&
-        o.name == name &&
-        o.specie == specie &&
-        o.story == story &&
-        o.size == size &&
-        o.breed == breed &&
-        o.gender == gender &&
-        o.nature == nature &&
-        o.age == age &&
-        o.chip == chip &&
-        o.castrated == castrated;
-  }
-
-  @override
-  int get hashCode {
-    return picture.hashCode ^
-        name.hashCode ^
-        specie.hashCode ^
-        story.hashCode ^
-        size.hashCode ^
-        breed.hashCode ^
-        gender.hashCode ^
-        nature.hashCode ^
-        age.hashCode ^
-        chip.hashCode ^
-        castrated.hashCode;
-  }
+  if (home.trim().length < 20) return 'home';
+  return null;
 }
