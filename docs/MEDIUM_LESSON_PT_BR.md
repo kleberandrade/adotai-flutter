@@ -1,6 +1,7 @@
 # Adotai com Flutter: um novo começo para cada amigo
 
-**Autor: Kleber Andrade**  
+**Autor: Kleber Andrade**
+
 **Situação editorial:** revisão preparada em 17/11/2026. Não foi localizada uma URL de aula vinculada no repositório nem uma sessão editorial do Medium disponível. Este arquivo não foi publicado. Ao incorporar a revisão, preservar a URL, o idioma, a autoria e os créditos da aula original. Não enviar newsletter.
 
 ![Capa conceitual do Adotai, com uma pata desenhada localmente; não é uma captura do aplicativo.](cover.svg)

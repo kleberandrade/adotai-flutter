@@ -16,7 +16,7 @@ Validated locally on 2026-11-17 (America/Sao_Paulo).
 - `flutter test`: **8 passed**. Coverage includes combined filters/search, favorites/language/request persistence through a new repository instance, invalid application fields, active duplicate prevention, allowed and forbidden transitions, cancellation and reapplication, write failure preserving committed state, corrupt JSON and unknown persisted animal IDs, mobile language/empty state, and the complete profile/form/tracking widget flow.
 - The mobile test initially reproduced a dropdown horizontal overflow. `isExpanded` fixed the constrained dropdown; the same test passed afterward.
 - The persisted unknown-ID regression test failed before adding read validation and passed after it.
-- `flutter build web --release --no-web-resources-cdn`: **passed**, release Web build with local rendering resources (61.2 seconds).
+- `flutter build web --release --no-web-resources-cdn`: **passed**, release Web build with local rendering resources (final build: 71.3 seconds).
 - Heavy Flutter tests and builds were executed sequentially in this chat.
 
 ## Real browser inspection

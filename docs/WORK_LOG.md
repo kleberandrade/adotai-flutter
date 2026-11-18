@@ -18,4 +18,6 @@
 - Initial test execution was blocked by SDK/config preparation; the later unknown-ID regression was explicitly observed failing before its fix. No claim of a complete initial red test suite is made.
 - Preserved the original 2020 author identity (Kléber de Oliveira Andrade / Kleber Andrade) in history and license. Original icon reused with honest 1024×1024 manifest dimensions.
 - Removed only this task's unused SDK symlink; retained the working isolated SDK for reproducible local runs. No other chat's toolchain/cache was changed.
-- Automatic approval review blocked direct push to master because it requires explicit trusted-user authorization for the shared default branch. No push was performed; all work is committed locally pending specific approval.
+- Automatic approval review blocked direct push to master because it requires explicit trusted-user authorization for the shared default branch. No push to master was performed. A safer review branch was subsequently created and pushed successfully: `modernization/adotai-local-20261117`.
+
+- Final release build passed in 71.3 seconds. Locked installation and zero-change format checks passed. Created a review branch instead of changing master; integration remains a separate approval step.
